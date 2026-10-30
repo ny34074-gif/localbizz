@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>LocalBiz - Find Local Businesses</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <style>
+
+        /* =========================
+           HOME SEARCH
+        ========================= */
+
+        .home-search-box {
+            max-width: 920px;
+            margin: 32px auto 0;
+            background: #ffffff;
+            padding: 12px;
+            border-radius: 18px;
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 10px;
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.10);
+        }
+
+        .home-search-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid #dbe3ef;
+            background: #fff;
+            border-radius: 12px;
+            padding: 0 15px;
+        }
+
+        .home-search-input input {
+            width: 100%;
+            border: 0;
+            outline: 0;
+            padding: 15px 0;
+            font-size: 15px;
+            color: #0f172a;
+            background: transparent;
+        }
+
+        .hero {
+            padding: 95px 20px 105px;
+            text-align: center;
+            background:
+                linear-gradient(
+                    135deg,
+                    #eff6ff,
+                    #dbeafe
+                );
+        }
+
+        .hero-label {
+            color: #2563eb;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: clamp(40px, 6vw, 64px);
+            line-height: 1.05;
+            color: #0f172a;
+        }
+
+        .hero p {
+            max-width: 850px;
+            margin: 20px auto 0;
+            font-size: 18px;
+            color: #64748b;
+        }
+
+        .categories-home {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 35px;
+        }
+
+        .category-box {
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid #dbe3ef;
+            background: #fff;
+            border-radius: 18px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: .2s ease;
+        }
+
+        .category-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(15,23,42,.08);
+        }
+
+        .category-box .icon {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .category-box h3 {
+            margin: 0;
+            color: #0f172a;
+        }
+
+        .category-box p {
+            margin-top: 7px;
+            color: #64748b;
+        }
+
+
+        @media (max-width: 900px) {
+
+            .home-search-box {
+                grid-template-columns: 1fr;
+            }
+
+            .categories-home {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 560px) {
+
+            .categories-home {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding-top: 60px;
+                padding-bottom: 70px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         NAVBAR
+    =================================================== -->
+
+    <nav class="navbar">
+
+        <div class="container nav-inner">
+
+
+            <a
+                class="logo"
+                href="index.html"
+            >
+
+                <span class="logo-mark">
+                    L
+                </span>
+
+                LocalBiz
+
+            </a>
+
+
+            <div class="nav-links">
+
+                <a
+                    class="active"
+                    href="index.html"
+                >
+                    Home
+                </a>
+
+                <a
+                    href="businesses.html"
+                >
+                    Directory
+                </a>
+
+                <a
+                    href="contact.html"
+                >
+                    Contact
+                </a>
+
+            </div>
+
+
+            <div class="nav-actions">
+
+                <a
+                    class="btn btn-outline"
+                    href="login.html"
+                >
+                    Login
+                </a>
+
+                <a
+                    class="btn btn-primary"
+                    href="register.html"
+                >
+                    Register
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ==================================================
+         HERO
+    =================================================== -->
+
+    <section class="hero">
+
+        <div class="container">
+
+
+            <div class="hero-label">
+                YOUR LOCAL BUSINESS DIRECTORY
+            </div>
+
+
+            <h1>
+                Find trusted businesses near you
+            </h1>
+
+
+            <p>
+                Discover restaurants, hospitals, salons,
+                hotels, grocery stores and more —
+                all in one place.
+            </p>
+
+
+            <!-- ==================================================
+                 SEARCH
+            =================================================== -->
+
+            <form
+                id="homepageSearchForm"
+                class="home-search-box"
+            >
+
+
+                <!-- BUSINESS -->
+
+                <div class="home-search-input">
+
+                    <span>
+                        🔎
+                    </span>
+
+                    <input
+                        type="text"
+                        name="q"
+                        placeholder="Business name or service"
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <!-- LOCATION -->
+
+                <div class="home-search-input">
+
+                    <span>
+                        📍
+                    </span>
+
+                    <input
+                        type="text"
+                        name="location"
+                        placeholder="City or location"
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    Search
+                </button>
+
+
+            </form>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         POPULAR CATEGORIES
+    =================================================== -->
+
+    <section class="section">
+
+        <div class="container">
+
+
+            <div class="section-head">
+
+                <div>
+
+                    <h2>
+                        Popular Categories
+                    </h2>
+
+                    <p>
+                        Explore businesses by category
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="businesses.html"
+                    class="btn btn-outline"
+                >
+                    View All
+                </a>
+
+            </div>
+
+
+            <div class="categories-home">
+
+
+                <a
+                    class="category-box"
+                    href="businesses.html?category=Restaurants"
+                >
+
+                    <div class="icon">
+                        🍽️
+                    </div>
+
+                    <h3>
+                        Restaurants
+                    </h3>
+
+                    <p>
+                        Food & Dining
+                    </p>
+
+                </a>
+
+
+                <a
+                    class="category-box"
+                    href="businesses.html?category=Hospitals"
+                >
+
+                    <div class="icon">
+                        🏥
+                    </div>
+
+                    <h3>
+                        Hospitals
+                    </h3>
+
+                    <p>
+                        Healthcare
+                    </p>
+
+                </a>
+
+
+                <a
+                    class="category-box"
+                    href="businesses.html?category=Grocery Stores"
+                >
+
+                    <div class="icon">
+                        🛒
+                    </div>
+
+                    <h3>
+                        Grocery Stores
+                    </h3>
+
+                    <p>
+                        Daily Needs
+                    </p>
+
+                </a>
+
+
+                <a
+                    class="category-box"
+                    href="businesses.html?category=Salons"
+                >
+
+                    <div class="icon">
+                        💇
+                    </div>
+
+                    <h3>
+                        Salons
+                    </h3>
+
+                    <p>
+                        Beauty & Care
+                    </p>
+
+                </a>
+
+
+                <a
+                    class="category-box"
+                    href="businesses.html?category=Hotels"
+                >
+
+                    <div class="icon">
+                        🏨
+                    </div>
+
+                    <h3>
+                        Hotels
+                    </h3>
+
+                    <p>
+                        Stay & Travel
+                    </p>
+
+                </a>
+
+
+                <a
+                    class="category-box"
+                    href="businesses.html?category=Medical Shops"
+                >
+
+                    <div class="icon">
+                        💊
+                    </div>
+
+                    <h3>
+                        Medical Shops
+                    </h3>
+
+                    <p>
+                        Medicines
+                    </p>
+
+                </a>
+
+
+                <a
+                    class="category-box"
+                    href="businesses.html?category=Electronics"
+                >
+
+                    <div class="icon">
+                        💻
+                    </div>
+
+                    <h3>
+                        Electronics
+                    </h3>
+
+                    <p>
+                        Electronics & Gadgets
+                    </p>
+
+                </a>
+
+
+                <a
+                    class="category-box"
+                    href="businesses.html"
+                >
+
+                    <div class="icon">
+                        🏪
+                    </div>
+
+                    <h3>
+                        All Businesses
+                    </h3>
+
+                    <p>
+                        Browse Directory
+                    </p>
+
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         FOOTER
+    =================================================== -->
+
+    <footer class="footer">
+
+        <div class="container">
+
+            <div class="footer-grid">
+
+
+                <div>
+
+                    <h3>
+                        LocalBiz
+                    </h3>
+
+                    <p>
+                        Helping people discover
+                        trusted local businesses
+                        and helping owners reach
+                        more customers.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Explore
+                    </h3>
+
+                    <a href="businesses.html">
+                        Directory
+                    </a>
+
+                    <a href="register.html">
+                        Add Business
+                    </a>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Account
+                    </h3>
+
+                    <a href="login.html">
+                        Login
+                    </a>
+
+                    <a href="register.html">
+                        Register
+                    </a>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Support
+                    </h3>
+
+                    <a href="contact.html">
+                        Contact Us
+                    </a>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                ©
+                <span data-year></span>
+                LocalBiz
+
+            </div>
+
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- ==================================================
+         JAVASCRIPT
+    =================================================== -->
+
+    <script src="js/main.js"></script>
+
+
+    <script>
+
+        /*
+            IMPORTANT:
+            We intentionally DO NOT use id="homeSearch"
+            because the old main.js may intercept it.
+
+            This form directly goes to businesses.html.
+        */
+
+        document
+            .getElementById(
+                "homepageSearchForm"
+            )
+            .addEventListener(
+                "submit",
+                function(event) {
+
+                    event.preventDefault();
+
+
+                    const formData =
+                        new FormData(this);
+
+
+                    const q =
+                        (
+                            formData.get("q") ||
+                            ""
+                        ).trim();
+
+
+                    const location =
+                        (
+                            formData.get(
+                                "location"
+                            ) ||
+                            ""
+                        ).trim();
+
+
+                    const params =
+                        new URLSearchParams();
+
+
+                    if (q) {
+
+                        params.set(
+                            "q",
+                            q
+                        );
+
+                    }
+
+
+                    if (location) {
+
+                        params.set(
+                            "location",
+                            location
+                        );
+
+                    }
+
+
+                    const query =
+                        params.toString();
+
+
+                    window.location.href =
+                        "businesses.html" +
+                        (
+                            query
+                                ? "?" + query
+                                : ""
+                        );
+
+                }
+            );
+
+
+    </script>
+
+
+</body>
+
+</html>

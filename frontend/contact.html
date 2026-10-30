@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact & Support - LocalBiz</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <nav class="navbar">
+
+        <div class="container nav-inner">
+
+            <a class="logo" href="index.html">
+                <span class="logo-mark">L</span>
+                LocalBiz
+            </a>
+
+
+            <div class="nav-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="businesses.html">
+                    Directory
+                </a>
+
+                <a class="active" href="contact.html">
+                    Contact
+                </a>
+
+            </div>
+
+
+            <!-- IMPORTANT:
+                 main.js isi .nav-actions ko
+                 login/logout ke according update karega.
+            -->
+
+            <div class="nav-actions">
+
+                <a
+                    class="btn btn-outline"
+                    href="login.html"
+                >
+                    Login
+                </a>
+
+                <a
+                    class="btn btn-primary"
+                    href="register.html"
+                >
+                    Register
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         PAGE HEADER
+    ========================== -->
+
+    <section class="page-header">
+
+        <div class="container">
+
+            <h1>
+                Contact & Support
+            </h1>
+
+            <p>
+                Have a question, feedback or issue?
+                Send us a message.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CONTACT FORM
+    ========================== -->
+
+    <section class="section">
+
+        <div
+            class="container"
+            style="max-width:900px"
+        >
+
+            <div class="details-card">
+
+                <form id="contactForm">
+
+
+                    <!-- NAME + EMAIL -->
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label>
+                                Name
+                            </label>
+
+                            <input
+                                name="name"
+                                class="input"
+                                type="text"
+                                required
+                                placeholder="Your name"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Email
+                            </label>
+
+                            <input
+                                name="email"
+                                class="input"
+                                type="email"
+                                required
+                                placeholder="you@example.com"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SUBJECT -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Subject
+                        </label>
+
+                        <input
+                            name="subject"
+                            class="input"
+                            type="text"
+                            required
+                            placeholder="How can we help?"
+                        >
+
+                    </div>
+
+
+                    <!-- BUSINESS ID -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Business ID
+                            <span class="muted">
+                                (optional)
+                            </span>
+                        </label>
+
+                        <input
+                            name="business_id"
+                            class="input"
+                            type="number"
+                            placeholder="Enter business ID"
+                        >
+
+                    </div>
+
+
+                    <!-- MESSAGE -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Message
+                        </label>
+
+                        <textarea
+                            name="message"
+                            class="textarea"
+                            required
+                            placeholder="Write your message..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Send Message
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <div class="container">
+
+            <div class="footer-grid">
+
+
+                <div>
+
+                    <h3>
+                        LocalBiz
+                    </h3>
+
+                    <p>
+                        Helping people discover
+                        trusted local businesses
+                        and helping owners reach
+                        more customers.
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Explore
+                    </h3>
+
+                    <a href="businesses.html">
+                        Directory
+                    </a>
+
+                    <a href="register.html">
+                        Add Business
+                    </a>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Account
+                    </h3>
+
+                    <a href="login.html">
+                        Login
+                    </a>
+
+                    <a href="register.html">
+                        Register
+                    </a>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Support
+                    </h3>
+
+                    <a href="contact.html">
+                        Contact Us
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                ©
+                <span data-year></span>
+                LocalBiz
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script src="js/main.js"></script>
+
+    <script src="js/app-pages.js"></script>
+
+
+</body>
+
+</html>

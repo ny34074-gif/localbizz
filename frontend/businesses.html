@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Business Directory - LocalBiz</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <style>
+
+        /* =====================================================
+           DIRECTORY HEADER
+        ====================================================== */
+
+        .directory-header {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eff6ff,
+                    #dbeafe
+                );
+
+            padding: 65px 20px;
+
+        }
+
+
+        .directory-header h1 {
+
+            margin: 0;
+
+            color: #0f172a;
+
+            font-size:
+                clamp(38px, 5vw, 54px);
+
+        }
+
+
+        .directory-header p {
+
+            margin-top: 12px;
+
+            color: #64748b;
+
+            font-size: 18px;
+
+        }
+
+
+
+        /* =====================================================
+           DIRECTORY LAYOUT
+        ====================================================== */
+
+        .directory-layout {
+
+            display: grid;
+
+            grid-template-columns:
+                300px minmax(0, 1fr);
+
+            gap: 28px;
+
+            align-items: start;
+
+        }
+
+
+
+        /* =====================================================
+           FILTERS
+        ====================================================== */
+
+        .filter-card {
+
+            background: #ffffff;
+
+            border: 1px solid #dbe3ef;
+
+            border-radius: 18px;
+
+            padding: 22px;
+
+            position: sticky;
+
+            top: 20px;
+
+        }
+
+
+        .filter-card h3 {
+
+            margin-top: 0;
+
+            margin-bottom: 22px;
+
+            color: #0f172a;
+
+        }
+
+
+        .filter-group {
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .filter-group label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-weight: 700;
+
+            color: #334155;
+
+        }
+
+
+        .filter-input,
+        .filter-select {
+
+            width: 100%;
+
+            box-sizing: border-box;
+
+            border: 1px solid #dbe3ef;
+
+            border-radius: 10px;
+
+            padding: 13px 14px;
+
+            font-size: 14px;
+
+            background: #ffffff;
+
+            color: #0f172a;
+
+            outline: none;
+
+        }
+
+
+        .filter-input:focus,
+        .filter-select:focus {
+
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(37, 99, 235, 0.10);
+
+        }
+
+
+
+        /* =====================================================
+           RESULTS HEADER
+        ====================================================== */
+
+        .results-top {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .results-title h2 {
+
+            margin: 0;
+
+            color: #0f172a;
+
+        }
+
+
+        .results-title p {
+
+            margin:
+                6px 0 0;
+
+            color: #64748b;
+
+        }
+
+
+
+        /* =====================================================
+           BUSINESS GRID
+        ====================================================== */
+
+        .business-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 22px;
+
+        }
+
+
+        .business-card {
+
+            overflow: hidden;
+
+            background: #ffffff;
+
+            border:
+                1px solid #dbe3ef;
+
+            border-radius: 18px;
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease;
+
+        }
+
+
+        .business-card:hover {
+
+            transform:
+                translateY(-4px);
+
+            box-shadow:
+                0 14px 35px
+                rgba(15, 23, 42, .08);
+
+        }
+
+
+        .business-image {
+
+            width: 100%;
+
+            height: 210px;
+
+            object-fit: cover;
+
+            display: block;
+
+            background: #e2e8f0;
+
+        }
+
+
+        .business-placeholder {
+
+            width: 100%;
+
+            height: 210px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eff6ff,
+                    #dbeafe
+                );
+
+            font-size: 58px;
+
+        }
+
+
+        .business-content {
+
+            padding: 20px;
+
+        }
+
+
+        .business-content h3 {
+
+            margin: 0;
+
+            color: #0f172a;
+
+            font-size: 21px;
+
+        }
+
+
+        .business-category {
+
+            margin-top: 7px;
+
+            color: #2563eb;
+
+            font-weight: 700;
+
+            font-size: 14px;
+
+        }
+
+
+        .business-rating {
+
+            margin-top: 10px;
+
+            color: #f59e0b;
+
+            font-weight: 700;
+
+        }
+
+
+        .review-count {
+
+            color: #64748b;
+
+            font-weight: 500;
+
+        }
+
+
+        .business-description {
+
+            margin-top: 10px;
+
+            color: #64748b;
+
+            line-height: 1.55;
+
+            display:
+                -webkit-box;
+
+            -webkit-line-clamp: 3;
+
+            -webkit-box-orient:
+                vertical;
+
+            overflow: hidden;
+
+        }
+
+
+        .business-meta {
+
+            display: grid;
+
+            gap: 7px;
+
+            margin-top: 14px;
+
+            color: #475569;
+
+            font-size: 14px;
+
+        }
+
+
+        .business-actions {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 9px;
+
+            margin-top: 18px;
+
+        }
+
+
+
+        /* =====================================================
+           MESSAGE
+        ====================================================== */
+
+        .directory-message {
+
+            grid-column: 1 / -1;
+
+            padding: 50px 20px;
+
+            text-align: center;
+
+            border:
+                1px dashed #cbd5e1;
+
+            border-radius: 16px;
+
+            background: #f8fafc;
+
+            color: #64748b;
+
+        }
+
+
+        .directory-message strong {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #334155;
+
+            font-size: 20px;
+
+        }
+
+
+
+        /* =====================================================
+           MOBILE
+        ====================================================== */
+
+        @media (max-width: 950px) {
+
+            .directory-layout {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+            .filter-card {
+
+                position: static;
+
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .business-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .results-top {
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+            }
+
+
+            .results-top select {
+
+                max-width: none !important;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <nav class="navbar">
+
+        <div class="container nav-inner">
+
+
+            <a
+                class="logo"
+                href="index.html"
+            >
+
+                <span class="logo-mark">
+                    L
+                </span>
+
+                LocalBiz
+
+            </a>
+
+
+            <div class="nav-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a
+                    class="active"
+                    href="businesses.html"
+                >
+                    Directory
+                </a>
+
+                <a href="contact.html">
+                    Contact
+                </a>
+
+            </div>
+
+
+            <div class="nav-actions">
+
+                <a
+                    class="btn btn-outline"
+                    href="login.html"
+                >
+                    Login
+                </a>
+
+                <a
+                    class="btn btn-primary"
+                    href="register.html"
+                >
+                    Register
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <section class="directory-header">
+
+        <div class="container">
+
+            <h1>
+                Business Directory
+            </h1>
+
+            <p>
+                Find the right local business
+                for your needs.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         DIRECTORY CONTENT
+    ====================================================== -->
+
+    <section class="section">
+
+        <div class="container">
+
+
+            <div class="directory-layout">
+
+
+                <!-- =================================================
+                     FILTER CARD
+                ================================================== -->
+
+                <aside class="filter-card">
+
+                    <h3>
+                        Search & Filters
+                    </h3>
+
+
+                    <!-- BUSINESS NAME -->
+
+                    <div class="filter-group">
+
+                        <label for="searchInput">
+                            Business Name
+                        </label>
+
+                        <input
+                            id="searchInput"
+                            class="filter-input"
+                            type="text"
+                            placeholder="Search..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+
+                    <!-- LOCATION -->
+
+                    <div class="filter-group">
+
+                        <label for="locationInput">
+                            Location
+                        </label>
+
+                        <input
+                            id="locationInput"
+                            class="filter-input"
+                            type="text"
+                            placeholder="City or location"
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+
+                    <!-- CATEGORY -->
+
+                    <div class="filter-group">
+
+                        <label for="categoryInput">
+                            Category
+                        </label>
+
+                        <select
+                            id="categoryInput"
+                            class="filter-select"
+                        >
+
+                            <option value="">
+                                All Categories
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- RATING -->
+
+                    <div class="filter-group">
+
+                        <label for="ratingInput">
+                            Minimum Rating
+                        </label>
+
+                        <select
+                            id="ratingInput"
+                            class="filter-select"
+                        >
+
+                            <option value="0">
+                                Any Rating
+                            </option>
+
+                            <option value="4">
+                                4+ Stars
+                            </option>
+
+                            <option value="3">
+                                3+ Stars
+                            </option>
+
+                            <option value="2">
+                                2+ Stars
+                            </option>
+
+                            <option value="1">
+                                1+ Star
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- APPLY -->
+
+                    <button
+                        id="applyFilters"
+                        type="button"
+                        class="btn btn-primary"
+                        style="width:100%"
+                    >
+                        Apply Filters
+                    </button>
+
+
+                    <!-- CLEAR -->
+
+                    <button
+                        id="clearFilters"
+                        type="button"
+                        class="btn btn-outline"
+                        style="
+                            width:100%;
+                            margin-top:10px;
+                        "
+                    >
+                        Clear Filters
+                    </button>
+
+
+                </aside>
+
+
+
+                <!-- =================================================
+                     RESULTS
+                ================================================== -->
+
+                <main>
+
+
+                    <div class="results-top">
+
+
+                        <div class="results-title">
+
+                            <h2 id="resultTitle">
+                                Businesses
+                            </h2>
+
+                            <p id="resultSubtitle">
+                                Loading businesses...
+                            </p>
+
+                        </div>
+
+
+                        <select
+                            id="sortInput"
+                            class="filter-select"
+                            style="max-width:190px"
+                        >
+
+                            <option value="relevant">
+                                Most Relevant
+                            </option>
+
+                            <option value="rating">
+                                Highest Rated
+                            </option>
+
+                            <option value="newest">
+                                Newest
+                            </option>
+
+                            <option value="name">
+                                Name A-Z
+                            </option>
+
+                        </select>
+
+
+                    </div>
+
+
+
+                    <div
+                        id="businessResults"
+                        class="business-grid"
+                    >
+
+                        <div
+                            class="directory-message"
+                        >
+
+                            <strong>
+                                Loading businesses...
+                            </strong>
+
+                            Please wait.
+
+                        </div>
+
+                    </div>
+
+
+                </main>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="footer">
+
+        <div class="container">
+
+            <div class="footer-bottom">
+
+                ©
+                <span id="currentYear"></span>
+                LocalBiz
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         MAIN JS
+    ====================================================== -->
+
+    <script src="js/main.js"></script>
+
+
+    <!-- =====================================================
+         DIRECTORY JS
+    ====================================================== -->
+
+    <script>
+
+        /*
+         * IMPORTANT:
+         * Do NOT name this variable API.
+         * main.js already has API.
+         */
+
+        const DIRECTORY_API =
+            "http://127.0.0.1:5000/api";
+
+
+        // ==================================================
+        // ELEMENTS
+        // ==================================================
+
+        const searchInput =
+            document.getElementById(
+                "searchInput"
+            );
+
+
+        const locationInput =
+            document.getElementById(
+                "locationInput"
+            );
+
+
+        const categoryInput =
+            document.getElementById(
+                "categoryInput"
+            );
+
+
+        const ratingInput =
+            document.getElementById(
+                "ratingInput"
+            );
+
+
+        const sortInput =
+            document.getElementById(
+                "sortInput"
+            );
+
+
+        const applyFilters =
+            document.getElementById(
+                "applyFilters"
+            );
+
+
+        const clearFilters =
+            document.getElementById(
+                "clearFilters"
+            );
+
+
+        const businessResults =
+            document.getElementById(
+                "businessResults"
+            );
+
+
+        const resultTitle =
+            document.getElementById(
+                "resultTitle"
+            );
+
+
+        const resultSubtitle =
+            document.getElementById(
+                "resultSubtitle"
+            );
+
+
+        const currentYear =
+            document.getElementById(
+                "currentYear"
+            );
+
+
+        currentYear.textContent =
+            new Date().getFullYear();
+
+
+
+        // ==================================================
+        // API REQUEST
+        // ==================================================
+
+        async function directoryFetch(
+            endpoint
+        ) {
+
+
+            const response =
+                await fetch(
+                    DIRECTORY_API +
+                    endpoint,
+                    {
+                        credentials:
+                            "include"
+                    }
+                );
+
+
+            let data = {};
+
+
+            try {
+
+                data =
+                    await response.json();
+
+            }
+
+            catch {
+
+                data = {};
+
+            }
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    "Unable to load businesses."
+                );
+
+            }
+
+
+            return data;
+
+        }
+
+
+
+        // ==================================================
+        // ESCAPE HTML
+        // ==================================================
+
+        function escapeHTML(
+            value
+        ) {
+
+            return String(
+                value ?? ""
+            )
+            .replace(
+                /[&<>"']/g,
+                char => ({
+
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#39;"
+
+                }[char])
+            );
+
+        }
+
+
+
+        // ==================================================
+        // IMAGE URL
+        // ==================================================
+
+        function getImageURL(
+            imagePath
+        ) {
+
+
+            if (!imagePath) {
+
+                return "";
+
+            }
+
+
+            if (
+                imagePath.startsWith(
+                    "http://"
+                ) ||
+                imagePath.startsWith(
+                    "https://"
+                )
+            ) {
+
+                return imagePath;
+
+            }
+
+
+            return (
+                "http://127.0.0.1:5000" +
+                imagePath
+            );
+
+        }
+
+
+
+        // ==================================================
+        // READ URL PARAMETERS
+        // ==================================================
+
+        function readURLParameters() {
+
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+
+            searchInput.value =
+                params.get("q") || "";
+
+
+            locationInput.value =
+                params.get(
+                    "location"
+                ) || "";
+
+
+            ratingInput.value =
+                params.get(
+                    "rating"
+                ) || "0";
+
+
+            return params;
+
+        }
+
+
+
+        // ==================================================
+        // LOAD CATEGORIES
+        // ==================================================
+
+        async function loadCategories() {
+
+
+            try {
+
+
+                const data =
+                    await directoryFetch(
+                        "/businesses/categories"
+                    );
+
+
+                const categories =
+                    data.categories || [];
+
+
+                categories.forEach(
+                    category => {
+
+
+                        const option =
+                            document.createElement(
+                                "option"
+                            );
+
+
+                        option.value =
+                            category.name;
+
+
+                        option.textContent =
+                            category.name;
+
+
+                        categoryInput.appendChild(
+                            option
+                        );
+
+
+                    }
+                );
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Category error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+
+        // ==================================================
+        // BUILD QUERY
+        // ==================================================
+
+        function buildQuery() {
+
+
+            const params =
+                new URLSearchParams();
+
+
+            const q =
+                searchInput.value.trim();
+
+
+            const location =
+                locationInput.value.trim();
+
+
+            const category =
+                categoryInput.value;
+
+
+            const rating =
+                ratingInput.value;
+
+
+            if (q) {
+
+                params.set(
+                    "q",
+                    q
+                );
+
+            }
+
+
+            if (location) {
+
+                params.set(
+                    "location",
+                    location
+                );
+
+            }
+
+
+            if (category) {
+
+                params.set(
+                    "category",
+                    category
+                );
+
+            }
+
+
+            if (
+                rating &&
+                rating !== "0"
+            ) {
+
+                params.set(
+                    "rating",
+                    rating
+                );
+
+            }
+
+
+            return params;
+
+        }
+
+
+
+        // ==================================================
+        // UPDATE URL
+        // ==================================================
+
+        function updateURL() {
+
+
+            const params =
+                buildQuery();
+
+
+            const query =
+                params.toString();
+
+
+            window.history.replaceState(
+                {},
+                "",
+                "businesses.html" +
+                (
+                    query
+                        ? "?" + query
+                        : ""
+                )
+            );
+
+        }
+
+
+
+        // ==================================================
+        // APPLY CATEGORY FROM URL
+        // ==================================================
+
+        function applyURLCategory() {
+
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+
+            const category =
+                params.get(
+                    "category"
+                );
+
+
+            if (
+                category &&
+                categoryInput.querySelector(
+                    `option[value="${CSS.escape(category)}"]`
+                )
+            ) {
+
+                categoryInput.value =
+                    category;
+
+            }
+
+        }
+
+
+
+        // ==================================================
+        // SORT
+        // ==================================================
+
+        function sortBusinesses(
+            businesses
+        ) {
+
+
+            if (
+                sortInput.value ===
+                "rating"
+            ) {
+
+                businesses.sort(
+                    (a, b) =>
+                        Number(
+                            b.avg_rating || 0
+                        ) -
+                        Number(
+                            a.avg_rating || 0
+                        )
+                );
+
+
+            }
+
+
+            else if (
+                sortInput.value ===
+                "newest"
+            ) {
+
+                businesses.sort(
+                    (a, b) =>
+                        new Date(
+                            b.created_at
+                        ) -
+                        new Date(
+                            a.created_at
+                        )
+                );
+
+
+            }
+
+
+            else if (
+                sortInput.value ===
+                "name"
+            ) {
+
+                businesses.sort(
+                    (a, b) =>
+                        String(
+                            a.business_name ||
+                            ""
+                        )
+                        .localeCompare(
+                            String(
+                                b.business_name ||
+                                ""
+                            )
+                        )
+                );
+
+
+            }
+
+
+            else {
+
+                businesses.sort(
+                    (a, b) =>
+                        Number(
+                            b.avg_rating || 0
+                        ) -
+                        Number(
+                            a.avg_rating || 0
+                        )
+                );
+
+            }
+
+
+            return businesses;
+
+        }
+
+
+
+        // ==================================================
+        // RENDER BUSINESS CARD
+        // ==================================================
+
+        function renderBusiness(
+            business
+        ) {
+
+
+            const rating =
+                Number(
+                    business.avg_rating ||
+                    0
+                );
+
+
+            const reviewCount =
+                Number(
+                    business.review_count ||
+                    0
+                );
+
+
+            const location =
+                business.location ||
+                business.address ||
+                "Location unavailable";
+
+
+            const description =
+                business.description ||
+                "No description available.";
+
+
+            const imagePath =
+                business.images &&
+                business.images.length
+                    ? business.images[0]
+                        .image_path
+                    : "";
+
+
+            const image =
+                getImageURL(
+                    imagePath
+                );
+
+
+            return `
+
+                <article
+                    class="business-card"
+                >
+
+                    ${
+                        image
+                            ? `
+
+                                <img
+                                    class="business-image"
+                                    src="${escapeHTML(image)}"
+                                    alt="${escapeHTML(
+                                        business.business_name
+                                    )}"
+                                    loading="lazy"
+                                    onerror="
+                                        this.style.display='none';
+                                        this.nextElementSibling.style.display='flex';
+                                    "
+                                >
+
+                                <div
+                                    class="business-placeholder"
+                                    style="display:none"
+                                >
+                                    🏪
+                                </div>
+
+                              `
+                            : `
+
+                                <div
+                                    class="business-placeholder"
+                                >
+                                    🏪
+                                </div>
+
+                              `
+                    }
+
+
+                    <div
+                        class="business-content"
+                    >
+
+                        <h3>
+                            ${escapeHTML(
+                                business.business_name
+                            )}
+                        </h3>
+
+
+                        <div
+                            class="business-category"
+                        >
+
+                            ${escapeHTML(
+                                business.category ||
+                                "Business"
+                            )}
+
+                        </div>
+
+
+                        <div
+                            class="business-rating"
+                        >
+
+                            ★
+                            ${rating.toFixed(1)}
+
+                            <span
+                                class="review-count"
+                            >
+                                (${reviewCount}
+                                ${
+                                    reviewCount === 1
+                                        ? "review"
+                                        : "reviews"
+                                })
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="business-description"
+                        >
+
+                            ${escapeHTML(
+                                description
+                            )}
+
+                        </div>
+
+
+                        <div
+                            class="business-meta"
+                        >
+
+                            <div>
+                                📍
+                                ${escapeHTML(
+                                    location
+                                )}
+                            </div>
+
+
+                            ${
+                                business.phone
+                                    ? `
+                                        <div>
+                                            📞
+                                            ${escapeHTML(
+                                                business.phone
+                                            )}
+                                        </div>
+                                      `
+                                    : ""
+                            }
+
+                        </div>
+
+
+                        <div
+                            class="business-actions"
+                        >
+
+                            <a
+                                class="btn btn-primary"
+                                href="business-details.html?id=${encodeURIComponent(
+                                    business.id
+                                )}"
+                            >
+                                View Details
+                            </a>
+
+
+                            ${
+                                business.phone
+                                    ? `
+                                        <a
+                                            class="btn btn-outline"
+                                            href="tel:${escapeHTML(
+                                                business.phone
+                                            )}"
+                                        >
+                                            Call
+                                        </a>
+                                      `
+                                    : ""
+                            }
+
+                        </div>
+
+
+                    </div>
+
+                </article>
+
+            `;
+
+        }
+
+
+
+        // ==================================================
+        // LOAD BUSINESSES
+        // ==================================================
+
+        async function loadBusinesses() {
+
+
+            businessResults.innerHTML = `
+
+                <div
+                    class="directory-message"
+                >
+
+                    <strong>
+                        Loading businesses...
+                    </strong>
+
+                    Please wait.
+
+                </div>
+
+            `;
+
+
+            try {
+
+
+                const params =
+                    buildQuery();
+
+
+                const query =
+                    params.toString();
+
+
+                console.log(
+                    "REQUEST:",
+                    DIRECTORY_API +
+                    "/businesses" +
+                    (
+                        query
+                            ? "?" + query
+                            : ""
+                    )
+                );
+
+
+                const data =
+                    await directoryFetch(
+                        "/businesses" +
+                        (
+                            query
+                                ? "?" + query
+                                : ""
+                        )
+                    );
+
+
+                let businesses =
+                    Array.isArray(
+                        data.businesses
+                    )
+                        ? data.businesses
+                        : [];
+
+
+                businesses =
+                    sortBusinesses(
+                        businesses
+                    );
+
+
+                // =========================================
+                // RESULT COUNT
+                // =========================================
+
+                resultTitle.textContent =
+                    businesses.length +
+                    (
+                        businesses.length === 1
+                            ? " business"
+                            : " businesses"
+                    );
+
+
+                if (
+                    query
+                ) {
+
+                    resultSubtitle.textContent =
+                        businesses.length
+                            ? "Matching your search and filters."
+                            : "No matching businesses found.";
+
+                }
+
+                else {
+
+                    resultSubtitle.textContent =
+                        "All approved businesses.";
+
+                }
+
+
+                // =========================================
+                // EMPTY
+                // =========================================
+
+                if (
+                    businesses.length === 0
+                ) {
+
+                    businessResults.innerHTML = `
+
+                        <div
+                            class="directory-message"
+                        >
+
+                            <strong>
+                                No businesses found
+                            </strong>
+
+                            Try another business
+                            name, location or category.
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                // =========================================
+                // RENDER
+                // =========================================
+
+                businessResults.innerHTML =
+                    businesses
+                        .map(
+                            renderBusiness
+                        )
+                        .join("");
+
+
+            }
+
+            catch (error) {
+
+
+                console.error(
+                    "BUSINESS DIRECTORY ERROR:",
+                    error
+                );
+
+
+                resultTitle.textContent =
+                    "Businesses";
+
+
+                resultSubtitle.textContent =
+                    "Unable to load businesses.";
+
+
+                businessResults.innerHTML = `
+
+                    <div
+                        class="directory-message"
+                    >
+
+                        <strong>
+                            Unable to load businesses
+                        </strong>
+
+                        ${escapeHTML(
+                            error.message
+                        )}
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+
+        // ==================================================
+        // APPLY FILTERS
+        // ==================================================
+
+        applyFilters.addEventListener(
+            "click",
+            () => {
+
+                updateURL();
+
+                loadBusinesses();
+
+            }
+        );
+
+
+
+        // ==================================================
+        // ENTER KEY SEARCH
+        // ==================================================
+
+        searchInput.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key ===
+                    "Enter"
+                ) {
+
+                    event.preventDefault();
+
+                    applyFilters.click();
+
+                }
+
+            }
+        );
+
+
+        locationInput.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key ===
+                    "Enter"
+                ) {
+
+                    event.preventDefault();
+
+                    applyFilters.click();
+
+                }
+
+            }
+        );
+
+
+
+        // ==================================================
+        // SORT
+        // ==================================================
+
+        sortInput.addEventListener(
+            "change",
+            loadBusinesses
+        );
+
+
+
+        // ==================================================
+        // CLEAR FILTERS
+        // ==================================================
+
+        clearFilters.addEventListener(
+            "click",
+            () => {
+
+
+                searchInput.value =
+                    "";
+
+
+                locationInput.value =
+                    "";
+
+
+                categoryInput.value =
+                    "";
+
+
+                ratingInput.value =
+                    "0";
+
+
+                sortInput.value =
+                    "relevant";
+
+
+                window.history.replaceState(
+                    {},
+                    "",
+                    "businesses.html"
+                );
+
+
+                loadBusinesses();
+
+            }
+        );
+
+
+
+        // ==================================================
+        // INITIALIZE
+        // ==================================================
+
+        (async function initializeDirectory() {
+
+
+            await loadCategories();
+
+
+            readURLParameters();
+
+
+            applyURLCategory();
+
+
+            await loadBusinesses();
+
+
+        })();
+
+    </script>
+
+
+</body>
+
+</html>

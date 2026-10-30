@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Dashboard - LocalBiz</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="container nav-inner">
+
+        <a class="logo" href="index.html">
+            <span class="logo-mark">L</span>
+            LocalBiz
+        </a>
+
+        <div class="nav-actions">
+            <a class="btn btn-outline" href="index.html">
+                View Website
+            </a>
+
+            <a class="btn btn-primary" href="#" id="logoutBtn">
+                Logout
+            </a>
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <a class="active" href="owner-dashboard.html">
+            📊 Dashboard
+        </a>
+
+        <a href="add-business.html">
+            ➕ Add Business
+        </a>
+
+        <a href="owner-businesses.html">
+            🏪 My Businesses
+        </a>
+
+        <a href="owner-reviews.html">
+            ⭐ Reviews
+        </a>
+
+        <a href="owner-messages.html">
+            💬 Messages
+        </a>
+
+        <a href="profile.html">
+            👤 Profile
+        </a>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="dash-main">
+
+        <div class="section-head">
+
+            <div>
+                <h2>Owner Dashboard</h2>
+                <p>
+                    Manage your businesses and customer activity.
+                </p>
+            </div>
+
+            <a class="btn btn-primary" href="add-business.html">
+                + Add Business
+            </a>
+
+        </div>
+
+
+        <!-- STATS -->
+        <div class="grid stat-grid">
+
+            <div class="stat">
+                <h4>Total Businesses</h4>
+                <strong id="totalBusinesses">0</strong>
+            </div>
+
+            <div class="stat">
+                <h4>Approved</h4>
+                <strong id="approvedBusinesses">0</strong>
+            </div>
+
+            <div class="stat">
+                <h4>Pending</h4>
+                <strong id="pendingBusinesses">0</strong>
+            </div>
+
+            <div class="stat">
+                <h4>Total Reviews</h4>
+                <strong id="totalReviews">0</strong>
+            </div>
+
+        </div>
+
+
+        <!-- BUSINESSES TABLE -->
+        <div style="margin-top:30px" class="table-wrap">
+
+            <table class="table">
+
+                <thead>
+                    <tr>
+                        <th>Business</th>
+                        <th>Category</th>
+                        <th>Rating</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="ownerDashboardTable">
+
+                    <tr>
+                        <td colspan="5" class="empty">
+                            Loading your businesses...
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+const API = "http://127.0.0.1:5000/api";
+
+
+// ==============================
+// ESCAPE HTML
+// ==============================
+
+function esc(value) {
+
+    return String(value ?? "")
+        .replace(/[&<>"']/g, function (char) {
+
+            return {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+
+            }[char];
+
+        });
+
+}
+
+
+// ==============================
+// API FUNCTION
+// ==============================
+
+async function api(path, options = {}) {
+
+    const config = {
+
+        credentials: "include",
+
+        ...options
+
+    };
+
+
+    if (
+        config.body &&
+        typeof config.body === "object" &&
+        !(config.body instanceof FormData)
+    ) {
+
+        config.headers = {
+
+            ...(config.headers || {}),
+
+            "Content-Type": "application/json"
+
+        };
+
+        config.body = JSON.stringify(config.body);
+
+    }
+
+
+    const response = await fetch(
+        API + path,
+        config
+    );
+
+
+    let data = {};
+
+    try {
+
+        data = await response.json();
+
+    } catch {
+
+        data = {};
+
+    }
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            data.message || "Something went wrong."
+        );
+
+    }
+
+
+    return data;
+
+}
+
+
+// ==============================
+// TOAST MESSAGE
+// ==============================
+
+function showMessage(message, type = "success") {
+
+    const oldToast =
+        document.querySelector(".toast");
+
+    if (oldToast) {
+
+        oldToast.remove();
+
+    }
+
+
+    const toast =
+        document.createElement("div");
+
+    toast.className =
+        "toast" +
+        (type === "error" ? " error" : "");
+
+
+    toast.textContent =
+        message;
+
+
+    document.body.appendChild(toast);
+
+
+    setTimeout(() => {
+
+        toast.remove();
+
+    }, 3500);
+
+}
+
+
+// ==============================
+// LOAD OWNER DASHBOARD
+// ==============================
+
+async function loadOwnerDashboard() {
+
+    const total =
+        document.getElementById(
+            "totalBusinesses"
+        );
+
+    const approved =
+        document.getElementById(
+            "approvedBusinesses"
+        );
+
+    const pending =
+        document.getElementById(
+            "pendingBusinesses"
+        );
+
+    const reviews =
+        document.getElementById(
+            "totalReviews"
+        );
+
+
+    const table =
+        document.getElementById(
+            "ownerDashboardTable"
+        );
+
+
+    // Always start with 0
+    total.textContent = "0";
+    approved.textContent = "0";
+    pending.textContent = "0";
+    reviews.textContent = "0";
+
+
+    table.innerHTML = `
+        <tr>
+            <td colspan="5" class="empty">
+                Loading your businesses...
+            </td>
+        </tr>
+    `;
+
+
+    try {
+
+        // --------------------------
+        // CHECK LOGIN
+        // --------------------------
+
+        const userData =
+            await api("/auth/me");
+
+
+        if (
+            !userData.user ||
+            ![
+                "business_owner",
+                "admin"
+            ].includes(userData.user.role)
+        ) {
+
+            throw new Error(
+                "Business Owner account required."
+            );
+
+        }
+
+
+        // --------------------------
+        // GET BUSINESSES
+        // --------------------------
+
+        const data =
+            await api(
+                "/businesses/owner/my"
+            );
+
+
+        const businesses =
+            data.businesses || [];
+
+
+        // --------------------------
+        // CALCULATE STATS
+        // --------------------------
+
+        total.textContent =
+            businesses.length;
+
+
+        approved.textContent =
+            businesses.filter(
+                business =>
+                    business.status === "approved"
+            ).length;
+
+
+        pending.textContent =
+            businesses.filter(
+                business =>
+                    business.status === "pending"
+            ).length;
+
+
+        reviews.textContent =
+            businesses.reduce(
+                (sum, business) =>
+                    sum +
+                    Number(
+                        business.review_count || 0
+                    ),
+                0
+            );
+
+
+        // --------------------------
+        // TABLE
+        // --------------------------
+
+        if (businesses.length === 0) {
+
+            table.innerHTML = `
+                <tr>
+                    <td colspan="5" class="empty">
+                        No businesses yet.
+                        <br><br>
+                        <a
+                            href="add-business.html"
+                            class="btn btn-primary"
+                        >
+                            + Add Your First Business
+                        </a>
+                    </td>
+                </tr>
+            `;
+
+            return;
+
+        }
+
+
+        table.innerHTML =
+            businesses.map(
+                business => `
+
+                    <tr>
+
+                        <td>
+                            ${esc(
+                                business.business_name
+                            )}
+                        </td>
+
+                        <td>
+                            ${esc(
+                                business.category ||
+                                ""
+                            )}
+                        </td>
+
+                        <td>
+                            ★
+                            ${Number(
+                                business.avg_rating || 0
+                            ).toFixed(1)}
+                        </td>
+
+                        <td>
+
+                            <span
+                                class="status
+                                ${esc(
+                                    business.status
+                                )}"
+                            >
+                                ${esc(
+                                    business.status
+                                )}
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <a
+                                class="btn btn-outline"
+                                href="business-details.html?id=${business.id}"
+                            >
+                                View
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                `
+            ).join("");
+
+
+    }
+
+    catch (error) {
+
+        total.textContent = "0";
+        approved.textContent = "0";
+        pending.textContent = "0";
+        reviews.textContent = "0";
+
+
+        table.innerHTML = `
+            <tr>
+                <td
+                    colspan="5"
+                    class="empty"
+                >
+                    ${esc(error.message)}
+                </td>
+            </tr>
+        `;
+
+
+        showMessage(
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+// ==============================
+// LOGOUT
+// ==============================
+
+document
+    .getElementById("logoutBtn")
+    .addEventListener(
+        "click",
+        async function (event) {
+
+            event.preventDefault();
+
+
+            try {
+
+                await api(
+                    "/auth/logout",
+                    {
+                        method: "POST"
+                    }
+                );
+
+            } catch (error) {
+
+                console.log(error);
+
+            }
+
+
+            window.location.href =
+                "login.html";
+
+        }
+    );
+
+
+// ==============================
+// YEAR / PAGE LOAD
+// ==============================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        loadOwnerDashboard();
+
+    }
+);
+
+</script>
+
+</body>
+</html>

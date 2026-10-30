@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login - LocalBiz</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="container nav-inner">
+
+        <a class="logo" href="index.html">
+            <span class="logo-mark">L</span>
+            LocalBiz
+        </a>
+
+        <a class="btn btn-outline" href="index.html">
+            ← Website
+        </a>
+
+    </div>
+
+</nav>
+
+
+<main class="auth-wrap">
+
+    <div class="auth-card">
+
+        <div style="
+            text-align:center;
+            font-size:42px;
+            margin-bottom:10px;
+        ">
+            🔐
+        </div>
+
+        <h1>
+            Administrator Login
+        </h1>
+
+        <p>
+            Login using your administrator account.
+        </p>
+
+
+        <div class="notice">
+
+            Admin accounts cannot be created from
+            the public registration page.
+
+        </div>
+
+
+        <form id="adminLoginForm">
+
+            <div class="form-group">
+
+                <label>
+                    Admin Email
+                </label>
+
+                <input
+                    name="email"
+                    class="input"
+                    type="email"
+                    autocomplete="username"
+                    required
+                    placeholder="admin@localbiz.com"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Admin Password
+                </label>
+
+                <input
+                    name="password"
+                    class="input"
+                    type="password"
+                    autocomplete="current-password"
+                    required
+                    placeholder="••••••••"
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+                style="width:100%"
+            >
+                Login as Admin
+            </button>
+
+        </form>
+
+
+        <p style="
+            margin-top:22px;
+            text-align:center;
+        ">
+
+            Customer / Business Owner?
+
+            <a
+                href="login.html"
+                style="
+                    color:var(--primary);
+                    font-weight:700;
+                "
+            >
+                Normal Login
+            </a>
+
+        </p>
+
+    </div>
+
+</main>
+
+
+<script src="js/main.js"></script>
+<script src="js/admin-auth.js"></script>
+
+</body>
+
+</html>
